@@ -1,10 +1,12 @@
 pipeline {
   agent { label 'jenkins-agent-jdk8' }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
   stages {
-    stage("build & SonarQube analysis") {
-      agent any
+    stage('Scan') {
       steps {
-        withSonarQubeEnv('My SonarQube Server') {
+        withSonarQubeEnv(installationName: 'sq1') { 
           sh 'mvn clean package sonar:sonar'
         }
       }
