@@ -5,9 +5,6 @@ pipeline {
   }
   stages {
     stage('Scan') {
-      tools {
-              jdk "temurin-17-jdk" // the name you have given the JDK installation using the JDK manager (Global Tool Configuration)
-          }
       steps {
         withSonarQubeEnv(installationName: 'sq1') { 
           sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
