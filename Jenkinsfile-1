@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'jenkins-agent-jdk8' }
+  agent { label 'jenkins-agent-jdk17' }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -7,7 +7,7 @@ pipeline {
     stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'sq1') { 
-          sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.10.0.2594:sonar'
+          sh 'JAVA_HOME=/usr/lib/jvm/java-17-openjdk ./mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.10.0.2594:sonar'
         }
       }
     }
